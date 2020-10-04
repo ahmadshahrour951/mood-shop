@@ -1,57 +1,8 @@
 import data from './data.js';
 
-const cart = [];
-
-function getQty() {
-  let qty = 0;
-  for (let i = 0; i < cart.length; i++) {
-    qty += cart[i].qty;
-  }
-  return qty;
-}
-
-function getTotal() {
-  let total = 0;
-  for (let i = 0; i < cart.length; i++) {
-    total += cart[i].price * cart[i].qty;
-  }
-  return total.toFixed(2);
-}
-
-function showItems() {
-  console.log(`You have ${getQty()} items in your cart`);
-
-  for (let i = 0; i < cart.length; i++) {
-    console.log(`- ${cart[i].name} $${cart[i].price} x ${cart[i].qty}`);
-  }
-
-  console.log(`Total in cart: $${getTotal()}`);
-}
-
-function addItem(name, price) {
-  for (let i = 0; i < cart.length; i++) {
-    if (cart[i].name === name) {
-      cart[i].qty++;
-      return;
-    }
-  }
-  const item = { name, price, qty: 1 };
-  cart.push(item);
-}
-
-function removeItem(name, qty = 0) {
-  for (let i = 0; i < cart.length; i++) {
-    if (cart[i].name === name) {
-      if (qty < 0) {
-        cart[i].qty -= qty;
-      } else {
-        cart.splice(i, 1);
-      }
-
-      return;
-    }
-  }
-}
+const itemList = document.getElementById('item-list');
+const cartQty = document.getElementById('cart-qty');
+const cartTotal = socument.getElementById('cart-total');
 
 const itemsContainer = document.getElementById('items');
 
@@ -87,3 +38,63 @@ data.forEach((mood) => {
 
   itemsContainer.appendChild(newDiv);
 });
+
+const cart = [];
+
+function getQty() {
+  let qty = 0;
+  for (let i = 0; i < cart.length; i++) {
+    qty += cart[i].qty;
+  }
+  return qty;
+}
+
+function getTotal() {
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    total += cart[i].price * cart[i].qty;
+  }
+  return total.toFixed(2);
+}
+
+function showItems() {
+  cartQty.innerHTML = `You have ${getQty()} items in your cart`;
+
+  let itemStr = '';
+  for (let i = 0; i < cart.length; i++) {
+    const { name, price, qty } = cart[i];
+
+    itemStr += `<li>
+    ${name} $${price} x ${qty} = 
+    $${price * qty}
+    </li>`;
+  }
+  itemList.innerHTML = itemStr;
+
+  cartTotal.innerHTML = `Total in cart: $${getTotal()}`;
+}
+
+function addItem(name, price) {
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].name === name) {
+      cart[i].qty++;
+      return;
+    }
+  }
+  const item = { name, price, qty: 1 };
+  cart.push(item);
+}
+
+function removeItem(name, qty = 0) {
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].name === name) {
+      if (qty < 0) {
+        cart[i].qty -= qty;
+      } else {
+        cart.splice(i, 1);
+      }
+
+      return;
+    }
+  }
+}
