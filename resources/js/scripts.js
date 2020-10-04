@@ -2,7 +2,7 @@ import data from './data.js';
 
 const itemList = document.getElementById('item-list');
 const cartQty = document.getElementById('cart-qty');
-const cartTotal = socument.getElementById('cart-total');
+const cartTotal = document.getElementById('cart-total');
 
 const itemsContainer = document.getElementById('items');
 
@@ -98,3 +98,11 @@ function removeItem(name, qty = 0) {
     }
   }
 }
+
+const all_items_button = Array.from(document.querySelectorAll('button'));
+all_items_button.forEach((elt) =>
+  elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'));
+    showItems();
+  })
+);
