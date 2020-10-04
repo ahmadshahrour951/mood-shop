@@ -9,12 +9,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: bisque;
-  color: white;
-}
-
-.page-header nav {
   background-color: #800000;
+  color: white;
 }
 
 .page-header h4 {
